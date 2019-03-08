@@ -1,7 +1,7 @@
-#Weather App Cloudee
-**Cloudee** is a forecast app built for Mobile User Interfaces course.
+# Weather App Cloudee
+**Cloudee** is a forecast app built for Mobile User Interfaces course, with ability of showing current weather for particular localization.
 
-##Technologies used:
+## Technologies used:
 - React
 - Redux
 - Styled Components
@@ -9,4 +9,4 @@
 - Typescript
 - Material design
 
-  
+
