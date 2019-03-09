@@ -19,7 +19,7 @@ declare module 'MyModels' {
     } from './Clouds';
     export type RootWeather = {
         coord: Coord;
-        weather: Weather[];
+        weather: Weather;
         base: string;
         main: Main;
         visibility: number;

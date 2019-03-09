@@ -8,7 +8,7 @@ import * as actions from '../actions/actions';
 
 export type SandboxState = {
     isLoadingWeather: boolean;
-    weather: RootWeather|string;
+    weather: RootWeather;
 };
 
 export const weatherReducer = combineReducers<SandboxState, RootAction>({
@@ -23,7 +23,7 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
                 return state;
         }
     },
-    weather: (state = "Fulfill city input and click button", action) => {
+    weather: (state = {} as RootWeather, action) => {
         switch(action.type){
             case getType(actions.fetchWeather.success):
                 return action.payload
