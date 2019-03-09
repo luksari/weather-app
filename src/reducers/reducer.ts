@@ -6,10 +6,10 @@ import { getType } from 'typesafe-actions';
 
 import * as actions from '../actions/actions';
 
-export type SandboxState = Readonly<{
+export type SandboxState = {
     isLoadingWeather: boolean;
-    weather: RootWeather;
-}>;
+    weather: RootWeather|string;
+};
 
 export const weatherReducer = combineReducers<SandboxState, RootAction>({
     isLoadingWeather: (state = false, action) => {
@@ -23,12 +23,13 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
                 return state;
         }
     },
-weather: (state = undefined, action) => {
+    weather: (state = "Fulfill city input and click button", action) => {
         switch(action.type){
             case getType(actions.fetchWeather.success):
-                return action.payload;
-            default: 
+                return action.payload
+            default:
                 return state;
         }
     }
+   
 })
