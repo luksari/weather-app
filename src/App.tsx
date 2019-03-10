@@ -22,7 +22,7 @@ class AppRaw extends Component<Props, State> {
     return (
       <div className="App">
         <button onClick={() => fetchWeather("Sosnowiec,pl")} disabled={isLoading}>LoadWeather</button>
-        <WeatherView isLoading={isLoading} weatherObject={weatherObject}/>
+        {weatherObject !== undefined ? <WeatherView isLoading={isLoading} weatherObject={weatherObject}/> : "dupa"}
       </div>
     );
   }
