@@ -1,5 +1,5 @@
 import { RootAction } from 'MyTypes';
-import { RootWeather } from 'MyModels';
+import { WeatherModel } from 'MyModels';
 
 import { combineReducers } from 'redux';
 import { getType } from 'typesafe-actions';
@@ -8,8 +8,10 @@ import * as actions from '../actions/actions';
 
 export type SandboxState = {
     isLoadingWeather: boolean;
-    weather: RootWeather;
+    weather: WeatherModel;
 };
+
+
 
 export const weatherReducer = combineReducers<SandboxState, RootAction>({
     isLoadingWeather: (state = false, action) => {
@@ -23,7 +25,7 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
                 return state;
         }
     },
-    weather: (state = {} as RootWeather, action) => {
+    weather: (state = {} as WeatherModel, action) => {
         switch(action.type){
             case getType(actions.fetchWeather.success):
                 return action.payload

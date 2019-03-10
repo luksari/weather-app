@@ -9,10 +9,12 @@ export const fetchWeatherEpic: Epic<RootAction, RootAction, RootState, Services>
   action$.pipe(
     filter(isActionOf(fetchWeather.request)),
     switchMap( (action) => 
-      from(api.weather.getWeatherForCity(action.payload))
-      .pipe(
-        map(fetchWeather.success),
-        catchError(error => of(fetchWeather.failure(error)))
+      from(api
+        .weather
+        .getWeatherForCity(action.payload))
+          .pipe(
+            map(fetchWeather.success),
+            catchError(error => of(fetchWeather.failure(error)))
       )
     )
   );

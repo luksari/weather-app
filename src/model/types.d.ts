@@ -1,34 +1,52 @@
 declare module 'MyModels' {
-    import {
-        Coord
-    } from './Coord';
-    import {
-        Weather
-    } from './Weather';
-    import {
-        Main
-    } from './Main';
-    import {
-        Sys
-    } from './Sys';
-    import {
-        Wind
-    } from './Wind';
-    import {
-        Clouds
-    } from './Clouds';
-    export type RootWeather = {
+    export interface WeatherModel {
         coord: Coord;
-        weather: Weather;
+        weather: (WeatherEntity)[];
         base: string;
         main: Main;
         visibility: number;
         wind: Wind;
+        rain: Rain;
         clouds: Clouds;
         dt: number;
         sys: Sys;
         id: number;
         name: string;
         cod: number;
-    }
+      }
 }
+interface Coord {
+    lon: number;
+    lat: number;
+  }
+  interface WeatherEntity {
+    id: number;
+    main: string;
+    description: string;
+    icon: string;
+  }
+  interface Main {
+    temp: number;
+    pressure: number;
+    humidity: number;
+    temp_min: number;
+    temp_max: number;
+  }
+  interface Wind {
+    speed: number;
+    deg: number;
+  }
+  interface Rain {
+    one_hour: number;
+  }
+  interface Clouds {
+    all: number;
+  }
+  interface Sys {
+    type: number;
+    id: number;
+    message: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  }

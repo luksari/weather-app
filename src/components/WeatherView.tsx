@@ -1,40 +1,53 @@
 import * as React from 'react';
-import { RootWeather } from 'MyModels';
+import { WeatherModel } from 'MyModels';
 import styled from 'styled-components';
 
 interface Props {
-    weatherObject: RootWeather;
+    weatherObject: WeatherModel;
     isLoading: boolean
 }
 const WeatherViewContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 3px 6px #a4a4a4;
+    @media (max-width: 360px) {
+        background: red;
+  }
 `
 const Label = styled.p`
-    font-size: 5em;
+    width: 100%;
+    text-align: center;
+    font-size: 1em;
+`
+const Loader = styled.div`
+    margin: 0;
 `
 
 export const WeatherView: React.SFC<Props> = ({weatherObject, isLoading}) => {
     // Probably not the best check if weather is not an empty object
-    if(typeof weatherObject.base !== 'undefined'){
-        console.log(weatherObject.weather)
+    console.log(weatherObject);
+    if(typeof weatherObject.main !== undefined && weatherObject.cod == 200){
             const { temp, pressure, humidity } = weatherObject.main;
-            const { description, icon } = weatherObject.weather[0];
-            const { speed, deg, gust } = weatherObject.wind;
+            const { description } = weatherObject.weather[0];
+            const { speed } = weatherObject.wind;
             const { name } = weatherObject;
             return (
                 <WeatherViewContainer>
-                    <Label>Temperature: {temp}</Label>
-                    <Label>Air pressure: {pressure}</Label>
+                    <Label>{name}</Label>
+                    <Label>{ description}</Label>
+                    <Label>{temp}</Label>
+                    <Label>{pressure}</Label>
                     <Label>Humidity: {humidity}</Label>
-                    <Label>Description{ description}</Label>
-                    <Label>Icon: {icon}</Label>
                     <Label>Wind speed: {speed}</Label>
-                    <Label>Degree: {deg}</Label>
-                    <Label>Gust: {gust}</Label>
-                    <Label>Cityname: {name}</Label>
+
                 </WeatherViewContainer>
             )
+        }
+        if(isLoading) {
+            return <Loader>Loading...</Loader >
         }
         return(
             <div/>
