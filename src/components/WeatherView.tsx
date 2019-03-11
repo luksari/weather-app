@@ -93,7 +93,6 @@ export class WeatherView extends React.Component<Props, State>{
     }
 
     render(){
-        console.log('render')
         const { weatherObject, isLoading } = this.props;
         if(isLoading) {
             return <Loader><span>&lt; &gt;</span></Loader >
