@@ -1,66 +1,124 @@
 import * as React from 'react';
 import { WeatherModel } from 'MyModels';
-import styled from '../utils/styled-components'
-interface Props {
-    weatherObject: WeatherModel;
-    isLoading: boolean
-}
-const WeatherViewContainer = styled.div`
+import styled, { css, keyframes } from '../theme/theme';
+import posed from 'react-pose'
+
+const PosedWeatherViewContainer = posed.div({
+    shown: {y: '0%'},
+    hidden: {y: '-200%'}
+})
+
+const WeatherViewContainer = styled(PosedWeatherViewContainer)`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background: #fff;
+    flex-wrap: wrap;
+    background: #FFFFFF;
     border-radius: 15px;
-    box-shadow: 0px 3px 6px #a4a4a4;
-    @media (max-width: 360px) {
-        background: red;
-  }
+    box-sizing: border-box;
+    box-shadow: 0px 3px 6px #cfcfcf;
+    margin: 10px;
+    padding: 15px 0 15px 0;
 `
-const Label = styled('p')`
-    width: 100%;
+const cssInjector = (fontSize : number, fontWeight : number, color?: string, toUpper?: boolean, border?: boolean) => {
+    return css`
+        text-transform: ${toUpper ? 'uppercase' : 'none'};
+        color: ${color};
+        font-size: ${fontSize}em;
+        font-weight: ${fontWeight};
+        border-bottom: ${border ? `1px solid ${color}` : 'none'};
+        `  
+}
+const Label = styled("p")<{type: string}>`
     text-align: left;
-    font-size: '${( props ) => { 
-        switch(props.type){
-            default: return 1;
+    margin: 0 0 0 15px;
+    padding: 2px;
+    width: 80%;
+    color: ${props => props.theme.primaryColor};
+    ${({type, theme}) => {
+        switch(type) {
+            case "name": return cssInjector(0.95, 500, theme.alternativeColor, true);
+            case "description": return cssInjector(1.65, 400); 
+            case "temperature": return cssInjector(2.45, 700, theme.primaryColor, undefined, true); 
+            case "details": return cssInjector(0.95, 500); 
+            default : return cssInjector(1, 400);  
+            }
         }
     }
-    }em'
-    padding: 10px;
-    
-    
-`
-const Loader = styled.div`
-    margin: 0;
+`;
+const loaderAnimation = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
 `
 
-export const WeatherView: React.SFC<Props> = ({weatherObject, isLoading}) => {
-    // Probably not the best check if weather is not an empty object
-    if(typeof weatherObject.main !== undefined && weatherObject.cod == 200){
-            const { temp, pressure, humidity } = weatherObject.main;
-            const { description } = weatherObject.weather[0];
-            const rain = typeof weatherObject.rain === 'undefined' ? "No rain today :)" : weatherObject.rain['1h'];
-            
-            const { speed } = weatherObject.wind;
-            const { name } = weatherObject;
-            return (
-                <WeatherViewContainer>
-                    <Label type="name">{ name }</Label>
-                    <Label type="description">{ description }</Label>
-                    <Label type="temperature">{ temp }</Label>
-                    <Label type="details"><span>Air pressure:</span> { pressure }hPa</Label>
-                    <Label type="details"><span>Humidity:</span> { humidity }%</Label>
-                    <Label type="details"><span>Wind speed:</span>  {speed}</Label>
-                    <Label type="details">Rain: {rain}</Label>
-                </WeatherViewContainer>
-            )
-        }
-        if(isLoading) {
-            return <Loader>Loading...</Loader >
-        }
-        return(
-            <div/>
-        )
-       
+const Loader = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    font-size: 5rem;
+    color: ${props => props.theme.alternativeColor};
+    background: ${props => props.theme.primaryColor};
+    span{
+        display: block;
+        text-align: center;
+        animation: ${loaderAnimation} 2s linear infinite;
     }
+`
+interface Props {
+    className?: string;
+    weatherObject: WeatherModel;
+    isLoading: boolean;
+}
+interface State {
+    pose: string
+    weatherObject: WeatherModel
+    isLoading: boolean
+}
+
+export class WeatherView extends React.Component<Props, State>{
+    state = {
+        pose: 'hidden',
+        weatherObject: this.props.weatherObject,
+        isLoading: false,
+    }
+    componentWillReceiveProps(nextProps : Props){
+        if(nextProps.weatherObject){
+            this.setState({weatherObject: nextProps.weatherObject, pose: 'shown'})
+        }
+        
+    }
+   render(){
+    const {weatherObject, isLoading} = this.state;
+    const { temp, pressure, humidity } = weatherObject.main;
+    const { description } = weatherObject.weather[0];
+    const rain = typeof weatherObject.rain === 'undefined' ? "No rain today :)" : weatherObject.rain['1h'];
+    const { speed } = weatherObject.wind;
+    const { name } = weatherObject;
+    return (
+    <WeatherViewContainer pose={this.state.pose}>
+        <Label type="name">{ name }</Label>
+        <Label type="description">{ description }</Label>
+        <Label type="temperature">{ parseInt(temp.toString(), 10)}&#176;C</Label>
+        <Label type="details"><span>Air pressure:</span> { pressure }hPa</Label>
+        <Label type="details"><span>Humidity:</span> { humidity }%</Label>
+        <Label type="details"><span>Wind speed:</span>  {speed} m/s</Label>
+        <Label type="details">Rain: {rain}</Label>
+    </WeatherViewContainer>)
+    if(isLoading) {
+        return <Loader><span>&lt; &gt;</span></Loader >
+    }   
+    }
+    
+    // Returns empty div when there is no weather fetched
+   }
+
+
 
 
