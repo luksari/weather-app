@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { WeatherModel } from 'MyModels';
-import styled from 'styled-components';
-
+import styled from '../utils/styled-components'
 interface Props {
     weatherObject: WeatherModel;
     isLoading: boolean
