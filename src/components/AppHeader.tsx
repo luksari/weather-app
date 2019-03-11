@@ -13,6 +13,8 @@ const AppHeaderContainer = styled.header`
 
 export const AppHeader = () => {
     return(
-        <AppHeaderContainer></AppHeaderContainer>
+        <AppHeaderContainer>
+            
+        </AppHeaderContainer>
     )
 }
