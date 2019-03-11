@@ -37,7 +37,7 @@ interface Coord {
     deg: number;
   }
   interface Rain {
-    one_hour: number;
+    [key: string]: number;
   }
   interface Clouds {
     all: number;

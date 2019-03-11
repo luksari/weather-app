@@ -28,7 +28,6 @@ const Loader = styled.div`
 
 export const WeatherView: React.SFC<Props> = ({weatherObject, isLoading}) => {
     // Probably not the best check if weather is not an empty object
-    console.log(weatherObject);
     if(typeof weatherObject.main !== undefined && weatherObject.cod == 200){
             const { temp, pressure, humidity } = weatherObject.main;
             const { description } = weatherObject.weather[0];
