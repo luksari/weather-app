@@ -78,46 +78,44 @@ interface Props {
 }
 interface State {
     pose: string
-    weatherObject: WeatherModel
-    isLoading: boolean
 }
 
 export class WeatherView extends React.Component<Props, State>{
-    state = {
+    state ={
         pose: 'hidden',
-        weatherObject: this.props.weatherObject,
-        isLoading: false,
     }
-    componentWillReceiveProps(nextProps : Props){
-        if(nextProps.weatherObject){
-            this.setState({weatherObject: nextProps.weatherObject, pose: 'shown'})
+    componentDidUpdate({weatherObject, isLoading} : Props, {pose} : State){
+        if(weatherObject.cod !== 200 && isLoading === true && pose === 'hidden'){
+            setTimeout(()=>{
+                this.setState({pose: 'shown'})
+            })
         }
-        
     }
-   render(){
-    const {weatherObject, isLoading} = this.state;
-    const { temp, pressure, humidity } = weatherObject.main;
-    const { description } = weatherObject.weather[0];
-    const rain = typeof weatherObject.rain === 'undefined' ? "No rain today :)" : weatherObject.rain['1h'];
-    const { speed } = weatherObject.wind;
-    const { name } = weatherObject;
-    return (
-    <WeatherViewContainer pose={this.state.pose}>
-        <Label type="name">{ name }</Label>
-        <Label type="description">{ description }</Label>
-        <Label type="temperature">{ parseInt(temp.toString(), 10)}&#176;C</Label>
-        <Label type="details"><span>Air pressure:</span> { pressure }hPa</Label>
-        <Label type="details"><span>Humidity:</span> { humidity }%</Label>
-        <Label type="details"><span>Wind speed:</span>  {speed} m/s</Label>
-        <Label type="details">Rain: {rain}</Label>
-    </WeatherViewContainer>)
-    if(isLoading) {
-        return <Loader><span>&lt; &gt;</span></Loader >
-    }   
+
+    render(){
+        console.log('render')
+        const { weatherObject, isLoading } = this.props;
+        if(isLoading) {
+            return <Loader><span>&lt; &gt;</span></Loader >
+        }   
+        else if(weatherObject.cod !== 200) return <div/>
+        const { temp, pressure, humidity } = weatherObject.main;
+        const { description } = weatherObject.weather[0];
+        const rain = typeof weatherObject.rain === 'undefined' ? "No rain now :)" : weatherObject.rain['1h'];
+        const { speed } = weatherObject.wind;
+        const { name } = weatherObject;
+        return (
+        <WeatherViewContainer pose={this.state.pose}>
+            <Label type="name">{ name }</Label>
+            <Label type="description">{ description }</Label>
+            <Label type="temperature">{ parseInt(temp.toString(), 10)}&#176;C</Label>
+            <Label type="details"><span>Air pressure:</span> { pressure }hPa</Label>
+            <Label type="details"><span>Humidity:</span> { humidity }%</Label>
+            <Label type="details"><span>Wind speed:</span>  {speed} m/s</Label>
+            <Label type="details">Rain: {rain}</Label>
+        </WeatherViewContainer>)
     }
-    
-    // Returns empty div when there is no weather fetched
-   }
+}
 
 
 
