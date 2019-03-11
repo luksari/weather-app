@@ -16,9 +16,7 @@ const WeatherViewContainer = styled.div`
         background: red;
   }
 `
-const Label = styled('p')
-<{type: string}>
-`
+const Label = styled('p')`
     width: 100%;
     text-align: left;
     font-size: '${( props ) => { 
@@ -40,7 +38,8 @@ export const WeatherView: React.SFC<Props> = ({weatherObject, isLoading}) => {
     if(typeof weatherObject.main !== undefined && weatherObject.cod == 200){
             const { temp, pressure, humidity } = weatherObject.main;
             const { description } = weatherObject.weather[0];
-            const rain = weatherObject.rain['1h'];
+            const rain = typeof weatherObject.rain === 'undefined' ? "No rain today :)" : weatherObject.rain['1h'];
+            
             const { speed } = weatherObject.wind;
             const { name } = weatherObject;
             return (
@@ -48,10 +47,10 @@ export const WeatherView: React.SFC<Props> = ({weatherObject, isLoading}) => {
                     <Label type="name">{ name }</Label>
                     <Label type="description">{ description }</Label>
                     <Label type="temperature">{ temp }</Label>
-                    <Label type="details"><span>Air pressure:</span> { pressure }</Label>
-                    <Label type="details"><span>Humidity:</span> { humidity } %</Label>
+                    <Label type="details"><span>Air pressure:</span> { pressure }hPa</Label>
+                    <Label type="details"><span>Humidity:</span> { humidity }%</Label>
                     <Label type="details"><span>Wind speed:</span>  {speed}</Label>
-                    <Label type="details"><span>Rain:</span>  {rain}</Label>
+                    <Label type="details">Rain: {rain}</Label>
                 </WeatherViewContainer>
             )
         }
