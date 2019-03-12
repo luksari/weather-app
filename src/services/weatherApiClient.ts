@@ -9,6 +9,7 @@ const UNIT = '&units=metric';
 
 export const getWeatherForCity = (cityName: string) => {
     const url : string = `${ROOT}${cityName}${UNIT}${KEY}`;
+    console.log(url);
     return ajax.getJSON(url).pipe(
         map((response : WeatherModel) => response),
         catchError(err => err))

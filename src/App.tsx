@@ -4,7 +4,7 @@ import {fetchWeather} from './actions/actions'
 import { RootState } from 'MyTypes';
 import { WeatherView } from './components/WeatherView'
 import styled from './theme/theme';
-import { AppHeader } from './components/AppHeader';
+import { CityForm } from './components/CityForm';
 
 
 const mapStateToProps = (state: RootState) => ({
@@ -32,8 +32,8 @@ class AppRaw extends Component<Props, State> {
     const {isLoading, fetchWeather, weatherObject} = this.props
     return (
       <AppWrapper>
-        <AppHeader/>
-        <button onClick={() => fetchWeather("Sosnowiec,pl")} disabled={isLoading}>LoadWeather</button>
+        <CityForm/>
+        <button onClick={() => fetchWeather("Gliwice,pl")} disabled={isLoading}>LoadWeather</button>
         <WeatherView isLoading={isLoading} weatherObject={weatherObject}/>
       </AppWrapper>
     );
