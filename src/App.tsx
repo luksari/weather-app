@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import {fetchWeather} from './actions/actions'
 import { RootState } from 'MyTypes';
 import { WeatherView } from './components/WeatherView'
 import styled from './theme/theme';
@@ -12,11 +11,7 @@ const mapStateToProps = (state: RootState) => ({
   weatherObject: state.weatherReducer.weather
 })
 
-const mapDispatchToProps = {
-  fetchWeather: fetchWeather.request
-}
-
-type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+type Props = ReturnType<typeof mapStateToProps>;
 type State = {}
 
 const AppWrapper = styled.div`
@@ -29,11 +24,10 @@ const AppWrapper = styled.div`
 
 class AppRaw extends Component<Props, State> {
   render() {
-    const {isLoading, fetchWeather, weatherObject} = this.props
+    const {isLoading, weatherObject} = this.props
     return (
       <AppWrapper>
         <CityForm/>
-        <button onClick={() => fetchWeather("Gliwice,pl")} disabled={isLoading}>LoadWeather</button>
         <WeatherView isLoading={isLoading} weatherObject={weatherObject}/>
       </AppWrapper>
     );
@@ -41,5 +35,5 @@ class AppRaw extends Component<Props, State> {
 }
 
 
-export const App = connect(mapStateToProps, mapDispatchToProps)(AppRaw);
+export const App = connect(mapStateToProps, null)(AppRaw);
 

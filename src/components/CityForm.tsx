@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, SyntheticEvent } from 'react';
 import { RootState } from 'MyTypes';
 import { fetchWeather } from '../actions/actions';
 import {connect} from 'react-redux';
@@ -21,7 +21,9 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
     isLoading: state.weatherReducer.isLoadingWeather
 })
-type State = {}
+type State = {
+    cityName: string
+}
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
 class CityFormRaw extends Component<Props, State>{
@@ -31,10 +33,23 @@ class CityFormRaw extends Component<Props, State>{
             cityName: ''
         }
     }
+    handleChange = (event : React.FormEvent<HTMLInputElement>) => {
+        this.setState({
+            cityName: (event.target as HTMLInputElement).value
+        })
+    }
+    handleSubmit = (event : SyntheticEvent) =>{
+        this.props.fetchWeather(this.state.cityName)
+        event.preventDefault();
+    }
     render(){
         return(
             <AppHeaderContainer>
-                <StyledInput/>
+                <form onSubmit={this.handleSubmit}>
+                    <StyledInput onChange={this.handleChange}/>
+                    <input type="submit" value="Submit"/>
+                </form>
+
             </AppHeaderContainer>
         ) 
     }
