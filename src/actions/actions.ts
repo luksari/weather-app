@@ -9,4 +9,3 @@ export const fetchWeather = createAsyncAction(
 )<string, WeatherModel, string>();
 
 
-

@@ -1,18 +1,11 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { RootState } from 'MyTypes';
+import React, { SFC } from 'react';
 import { WeatherView } from './components/WeatherView'
 import styled from './theme/theme';
 import { CityForm } from './components/CityForm';
 
 
-const mapStateToProps = (state: RootState) => ({
-  isLoading: state.weatherReducer.isLoadingWeather,
-  weatherObject: state.weatherReducer.weather
-})
 
-type Props = ReturnType<typeof mapStateToProps>;
-type State = {}
+
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -22,18 +15,14 @@ const AppWrapper = styled.div`
   background: ${({theme})=>theme.backgroundColor};
 `
 
-class AppRaw extends Component<Props, State> {
-  render() {
-    const {isLoading, weatherObject} = this.props
+export const App : SFC = () =>  {
     return (
       <AppWrapper>
         <CityForm/>
-        <WeatherView isLoading={isLoading} weatherObject={weatherObject}/>
+        <WeatherView/>
       </AppWrapper>
     );
   }
-}
 
 
-export const App = connect(mapStateToProps, null)(AppRaw);
 

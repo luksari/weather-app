@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { WeatherModel } from 'MyModels';
 import styled, { css, keyframes } from '../theme/theme';
 import posed from 'react-pose'
+import { connect } from 'react-redux';
+import { RootState } from 'MyTypes';
 
 const PosedWeatherViewContainer = posed.div({
     shown: {y: '0%'},
@@ -71,40 +72,28 @@ const Loader = styled.div`
         animation: ${loaderAnimation} 2s linear infinite;
     }
 `
-interface Props {
-    className?: string;
-    weatherObject: WeatherModel;
-    isLoading: boolean;
-}
-interface State {
-    pose: string
-}
+const mapStateToProps = (state: RootState) => ({
+    isLoading: state.weatherReducer.isLoadingWeather,
+    weatherObject: state.weatherReducer.weather,
+    pose: state.weatherReducer.pose,
+    error: state.weatherReducer.error
+  })
 
-export class WeatherView extends React.Component<Props, State>{
-    state ={
-        pose: 'hidden',
-    }
-    componentDidUpdate({weatherObject, isLoading} : Props, {pose} : State){
-        if(weatherObject.cod !== 200 && isLoading === true && pose === 'hidden'){
-            setTimeout(()=>{
-                this.setState({pose: 'shown'})
-            })
-        }
-    }
+interface State {}
+type Props = ReturnType<typeof mapStateToProps>;
 
+export class WeatherViewRaw extends React.Component<Props, State>{
     render(){
-        const { weatherObject, isLoading } = this.props;
-        if(isLoading) {
-            return <Loader><span>&lt; &gt;</span></Loader >
-        }   
-        else if(weatherObject.cod !== 200) return <div/>
+        const { weatherObject, isLoading, pose, error } = this.props;
+        if(error !== '' || weatherObject.cod !== 200) return(<p>{error}</p>) 
+        if(isLoading) return <Loader>&lt;&gt;</Loader>
         const { temp, pressure, humidity } = weatherObject.main;
         const { description } = weatherObject.weather[0];
         const rain = typeof weatherObject.rain === 'undefined' ? "No rain now :)" : weatherObject.rain['1h'];
         const { speed } = weatherObject.wind;
         const { name } = weatherObject;
         return (
-        <WeatherViewContainer pose={this.state.pose}>
+        <WeatherViewContainer pose={pose}>
             <Label type="name">{ name }</Label>
             <Label type="description">{ description }</Label>
             <Label type="temperature">{ parseInt(temp.toString(), 10)}&#176;C</Label>
@@ -115,6 +104,8 @@ export class WeatherView extends React.Component<Props, State>{
         </WeatherViewContainer>)
     }
 }
+
+export const WeatherView = connect(mapStateToProps)(WeatherViewRaw)
 
 
 
