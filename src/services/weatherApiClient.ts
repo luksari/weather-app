@@ -2,6 +2,7 @@
 import {ajax} from 'rxjs/ajax'
 import { catchError, map } from 'rxjs/operators';
 import { WeatherModel } from 'MyModels';
+import { throwError } from 'rxjs';
 
 const ROOT = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const KEY = `&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
@@ -12,5 +13,5 @@ export const getWeatherForCity = (cityName: string) => {
     console.log(url);
     return ajax.getJSON(url).pipe(
         map((response : WeatherModel) => response),
-        catchError(err => err))
+        catchError(err =>  throwError(err.response)))
 }

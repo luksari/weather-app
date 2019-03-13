@@ -14,6 +14,10 @@ declare module 'MyModels' {
         name: string;
         cod: number;
       }
+      export interface ErrorModel {
+        cod: number,
+        message: string
+      }
 }
 interface Coord {
     lon: number;

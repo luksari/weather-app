@@ -85,7 +85,7 @@ type Props = ReturnType<typeof mapStateToProps>;
 export class WeatherViewRaw extends React.Component<Props, State>{
     render(){
         const { weatherObject, isLoading, pose, error } = this.props;
-        if(error !== '' || weatherObject.cod !== 200) return(<p>{error}</p>) 
+        if(weatherObject.cod !== 200) return <div>{error.message}</div>
         if(isLoading) return <Loader>&lt;&gt;</Loader>
         const { temp, pressure, humidity } = weatherObject.main;
         const { description } = weatherObject.weather[0];
