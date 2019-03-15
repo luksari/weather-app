@@ -42,18 +42,15 @@ type Props = ReturnType<typeof mapStateToProps>;
 export class WeatherViewRaw extends React.Component<Props, State>{
 
     render(){
-        console.log('render');
         const { weatherObject, isLoading, error } = this.props;
-        if(!(typeof weatherObject.main !== 'undefined') && typeof error.cod !== 'undefined') {return <Label type="error">{error.message}</Label>}
-        if(isLoading) {return <Loader>&lt;&gt;</Loader>}
-        if(weatherObject.cod !== undefined)
+        if(typeof weatherObject.main === 'undefined' && typeof error.cod !== 'undefined') {return <Label type="error">{error.message}</Label>}
+        else if(isLoading) {return <Loader>&lt;&gt;</Loader>}
+        else if(typeof weatherObject.cod !== 'undefined')
         return (
             <WeatherCard weather={weatherObject}/>
         )
+        else
         return <div/>
-
-        
-
     }
 }
 

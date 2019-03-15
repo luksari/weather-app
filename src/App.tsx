@@ -3,10 +3,6 @@ import { WeatherView } from './components/WeatherView'
 import styled from './theme/theme';
 import { CityForm } from './components/CityForm';
 
-
-
-
-
 const AppWrapper = styled.div`
   width: 100%;
   display: flex;

@@ -11,6 +11,7 @@ const AppHeaderContainer = styled.header`
     background: url('${backgroundImg}') no-repeat 0 0 fixed; 
     background-size: 100% 130px;
     box-shadow: 0px 3px 6px ${props => props.theme.shadowColor};
+    z-index: 999;
 `
 const StyledInput = styled.input`
     width: 80%;

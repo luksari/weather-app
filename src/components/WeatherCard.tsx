@@ -6,8 +6,8 @@ import { Label } from './Label';
 
 const PosedWeatherCard = posed.div({
     enter: {
-        y: 0,
-        opacity: 1,
+        y: '0%',
+        opacity: 0,
         delay: 300,
         transition: {
           y: { type: 'spring', stiffness: 1000, damping: 15 },
@@ -15,8 +15,8 @@ const PosedWeatherCard = posed.div({
         }
       },
       exit: {
-        y: 50,
-        opacity: 0,
+        y: '-100%',
+        opacity: 1,
         transition: { duration: 150 }
       }
     });
@@ -32,6 +32,7 @@ const StyledWeatherCard = styled(PosedWeatherCard)`
     box-shadow: 0px 3px 6px #cfcfcf;
     margin: 10px;
     padding: 15px 0 15px 0;
+    z-index: 0;
 `
 
 type Props = {
