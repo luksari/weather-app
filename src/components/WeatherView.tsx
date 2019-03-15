@@ -40,8 +40,8 @@ type Props = ReturnType<typeof mapStateToProps>;
 
 export const WeatherViewRaw : React.FC<Props> = (props) => {
     const { weatherObject, isLoading, error } = props;
-    if(typeof error.cod !== 'undefined' || typeof weatherObject.cod === 'undefined') {return <Label type="error">{error.message}</Label>}
-    else if(isLoading) {return <Loader><span>&lt;&gt;</span></Loader>}
+    if(isLoading) {return <Loader><span>&lt;&gt;</span></Loader>}
+    else if(typeof error.cod !== 'undefined' || typeof weatherObject.cod === 'undefined') {return <Label type="error">{error.message}</Label>}
     else if(typeof weatherObject.cod !== 'undefined')
     return (
         <WeatherCard weather={weatherObject}/>
