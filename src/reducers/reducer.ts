@@ -8,7 +8,6 @@ import * as actions from '../actions/actions';
 export type SandboxState = {
     isLoadingWeather: boolean;
     weather: WeatherModel;
-    pose: string;
     error: ErrorModel
 };
 
@@ -26,27 +25,21 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
     },
     weather: (state = {} as WeatherModel, action) => {
         switch(action.type){
+            case getType(actions.fetchWeather.failure):
+                return {} as WeatherModel;
             case getType(actions.fetchWeather.success):
                 return action.payload
             default:
                 return state;
         }
     },
-    pose: (state = 'hidden', action) => {
-        switch(action.type){
-            case getType(actions.fetchWeather.request):
-                return 'hidden';
-            case getType(actions.fetchWeather.failure):
-            case getType(actions.fetchWeather.success):
-                return 'shown';
-            default: 
-                return state;
-        }
-    },
+
     error: (state = {} as ErrorModel, action) => {
         switch(action.type){
             case getType(actions.fetchWeather.failure):
                 return action.payload;
+            case getType(actions.fetchWeather.success):
+                return {} as ErrorModel;
             default: return state;
         }
     }

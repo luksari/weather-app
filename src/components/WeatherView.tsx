@@ -27,7 +27,7 @@ const Loader = styled.div`
     span{
         display: block;
         text-align: center;
-        animation: ${loaderAnimation} 2s linear infinite;
+        animation: ${loaderAnimation} 1s linear infinite;
     }
 `
 const mapStateToProps = (state: RootState) => ({
@@ -36,22 +36,18 @@ const mapStateToProps = (state: RootState) => ({
     error: state.weatherReducer.error,
   })
 
-interface State {}
 type Props = ReturnType<typeof mapStateToProps>;
 
-export class WeatherViewRaw extends React.Component<Props, State>{
-
-    render(){
-        const { weatherObject, isLoading, error } = this.props;
-        if(typeof weatherObject.main === 'undefined' && typeof error.cod !== 'undefined') {return <Label type="error">{error.message}</Label>}
-        else if(isLoading) {return <Loader>&lt;&gt;</Loader>}
-        else if(typeof weatherObject.cod !== 'undefined')
-        return (
-            <WeatherCard weather={weatherObject}/>
-        )
-        else
-        return <div/>
-    }
+export const WeatherViewRaw : React.FC<Props> = (props) => {
+    const { weatherObject, isLoading, error } = props;
+    if(typeof error.cod !== 'undefined' || typeof weatherObject.cod === 'undefined') {return <Label type="error">{error.message}</Label>}
+    else if(isLoading) {return <Loader><span>&lt;&gt;</span></Loader>}
+    else if(typeof weatherObject.cod !== 'undefined')
+    return (
+        <WeatherCard weather={weatherObject}/>
+    )
+    else
+     return <div/>
 }
 
 export const WeatherView = connect(mapStateToProps)(WeatherViewRaw)

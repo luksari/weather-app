@@ -43,6 +43,8 @@ type State = {
 }
 
 export class WeatherCard extends React.Component<Props, State> {
+    _isMounted = false;
+    private interval : any;
     constructor(props : Props){
         super(props);
         this.state = {
@@ -50,11 +52,19 @@ export class WeatherCard extends React.Component<Props, State> {
         }
     }
     componentDidMount(){
-        setInterval(()=>{
-            this.setState({
-                pose: 'shown'
-            })
-        },100)
+        this._isMounted = true;
+
+        if(this._isMounted) {
+            this.interval = setInterval(()=>{
+                this.setState({
+                    pose: 'shown'
+                })
+            },200)
+        }
+    }
+    componentWillUnmount(){
+        clearInterval(this.interval);
+        this._isMounted = false;
     }
     render(){
         const {weather} = this.props;
