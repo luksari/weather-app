@@ -4,6 +4,7 @@ import { filter, map, catchError, switchMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { RootAction, RootState, Services } from 'MyTypes'
 import { fetchWeather } from './weatherActions';
+import { getMyLocation } from './locationActions';
 
 export const fetchWeatherEpic: Epic<RootAction, RootAction, RootState, Services> = (action$, state$, { api }) => 
   action$.pipe(
@@ -16,3 +17,9 @@ export const fetchWeatherEpic: Epic<RootAction, RootAction, RootState, Services>
       )
     )
   );
+export const getMyLocationEpic: Epic<RootAction, RootAction, RootState, Services> = (action$, state$) => {
+  action$.pipe(
+    filter(isActionOf(getMyLocation.request)),
+    switchMap( () => )
+  )
+}
