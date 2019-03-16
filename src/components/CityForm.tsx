@@ -1,6 +1,6 @@
 import React, { Component, SyntheticEvent } from 'react';
 import { RootState } from 'MyTypes';
-import { fetchWeather } from '../actions/actions';
+import { fetchWeather } from '../actions/weatherActions';
 import {connect} from 'react-redux';
 import styled from '../theme/theme';
 import backgroundImg from '../assets/img/Mask Group 1.png'

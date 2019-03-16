@@ -1,5 +1,7 @@
-import * as weatherActions from '../actions/actions'
+import * as weatherActions from '../actions/weatherActions';
+import * as locationActions from '../actions/locationActions';
 
 export default {
-    weather: weatherActions
+    weather: weatherActions,
+    location: locationActions
 }

@@ -3,7 +3,7 @@ import { WeatherModel, ErrorModel } from 'MyModels';
 import { combineReducers } from 'redux';
 import { getType } from 'typesafe-actions';
 
-import * as actions from '../actions/actions';
+import * as weatherActions from '../actions/weatherActions';
 
 export type SandboxState = {
     isLoadingWeather: boolean;
@@ -14,10 +14,10 @@ export type SandboxState = {
 export const weatherReducer = combineReducers<SandboxState, RootAction>({
     isLoadingWeather: (state = false, action) => {
         switch(action.type) {
-            case getType(actions.fetchWeather.request):
+            case getType(weatherActions.fetchWeather.request):
                 return true;
-            case getType(actions.fetchWeather.success):
-            case getType(actions.fetchWeather.failure):
+            case getType(weatherActions.fetchWeather.success):
+            case getType(weatherActions.fetchWeather.failure):
                 return false;
             default:
                 return state;
@@ -25,9 +25,9 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
     },
     weather: (state = {} as WeatherModel, action) => {
         switch(action.type){
-            case getType(actions.fetchWeather.failure):
+            case getType(weatherActions.fetchWeather.failure):
                 return {} as WeatherModel;
-            case getType(actions.fetchWeather.success):
+            case getType(weatherActions.fetchWeather.success):
                 return action.payload
             default:
                 return state;
@@ -36,9 +36,9 @@ export const weatherReducer = combineReducers<SandboxState, RootAction>({
 
     error: (state = {} as ErrorModel, action) => {
         switch(action.type){
-            case getType(actions.fetchWeather.failure):
+            case getType(weatherActions.fetchWeather.failure):
                 return action.payload;
-            case getType(actions.fetchWeather.success):
+            case getType(weatherActions.fetchWeather.success):
                 return {} as ErrorModel;
             default: return state;
         }
