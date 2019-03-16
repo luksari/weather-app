@@ -1,5 +1,4 @@
 import { combineEpics } from 'redux-observable';
+import {fetchWeatherEpic, getMyLocationEpic} from '../actions/epics';
 
-import * as epics from '../actions/epics';
-
-export default combineEpics(...Object.values(epics));
+export default combineEpics(fetchWeatherEpic, getMyLocationEpic);

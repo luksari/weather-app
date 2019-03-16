@@ -13,4 +13,3 @@ export const getGeoLocation = (options:object) => {
     })
 }
 
-

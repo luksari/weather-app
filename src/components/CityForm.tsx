@@ -4,6 +4,7 @@ import { fetchWeather } from '../actions/weatherActions';
 import {connect} from 'react-redux';
 import styled from '../theme/theme';
 import backgroundImg from '../assets/img/Mask Group 1.png'
+import { getMyLocation } from '../actions/locationActions';
 
 const AppHeaderContainer = styled.header`
     width: 100%;
@@ -44,10 +45,12 @@ const StyledButton = styled.input`
     }
 `
 const mapDispatchToProps = {
-    fetchWeather: fetchWeather.request
+    fetchWeather: fetchWeather.request,
+    getLocation: getMyLocation.request
 }
 const mapStateToProps = (state: RootState) => ({
-    isLoading: state.weatherReducer.isLoadingWeather
+    isLoading: state.weatherReducer.isLoadingWeather,
+    position: state.locationReducer.position,
 })
 type State = {
     cityName: string
@@ -70,9 +73,13 @@ class CityFormRaw extends Component<Props, State>{
         this.props.fetchWeather(this.state.cityName)
         event.preventDefault();
     }
+    handleClick = (event : SyntheticEvent) => {
+        this.props.getLocation();
+    }
     render(){
         return(
             <AppHeaderContainer>
+                <button onClick={this.handleClick}>{location ? location.hash : 'XD'}</button>
                 <FormContainer onSubmit={this.handleSubmit}>
                     <StyledInput onChange={this.handleChange}/>
                     <StyledButton type="submit" value="SEARCH"/>

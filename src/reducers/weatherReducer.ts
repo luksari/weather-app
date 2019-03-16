@@ -5,13 +5,13 @@ import { getType } from 'typesafe-actions';
 
 import * as weatherActions from '../actions/weatherActions';
 
-export type SandboxState = {
+export type weatherState = {
     isLoadingWeather: boolean;
     weather: WeatherModel;
     error: ErrorModel
 };
 
-export const weatherReducer = combineReducers<SandboxState, RootAction>({
+export const weatherReducer = combineReducers<weatherState, RootAction>({
     isLoadingWeather: (state = false, action) => {
         switch(action.type) {
             case getType(weatherActions.fetchWeather.request):

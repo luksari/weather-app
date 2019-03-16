@@ -4,8 +4,8 @@ import { weatherReducer } from '../reducers/weatherReducer';
 import { locationReducer } from '../reducers/locationReducer';
 
 const rootReducer = combineReducers({
-    weatherReducer,
-    locationReducer,
+    weatherReducer: weatherReducer,
+    locationReducer: locationReducer,
 });
 
 export default rootReducer;
