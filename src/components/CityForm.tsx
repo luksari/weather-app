@@ -13,8 +13,35 @@ const AppHeaderContainer = styled.header`
     box-shadow: 0px 3px 6px ${props => props.theme.shadowColor};
     z-index: 999;
 `
+const FormContainer = styled.form`
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+`
 const StyledInput = styled.input`
-    width: 80%;
+    width: 100%;
+    font-size: 1.3em;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin: 0 0 15px 0;
+    padding: 5px 0 5px 15px;
+`
+const StyledButton = styled.input`
+    position: relative;
+    font-size: .95em;
+    width: 30%;
+    background: ${props => props.theme.alternativeColor};
+    border: none;
+    padding: 15px;
+    color: #FFF;
+    border-radius: 5px;
+    outline: none;
+    &:hover,&:focus{
+        border-bottom: 3px solid ${props => props.theme.primaryColor};
+    }
 `
 const mapDispatchToProps = {
     fetchWeather: fetchWeather.request
@@ -46,10 +73,10 @@ class CityFormRaw extends Component<Props, State>{
     render(){
         return(
             <AppHeaderContainer>
-                <form onSubmit={this.handleSubmit}>
+                <FormContainer onSubmit={this.handleSubmit}>
                     <StyledInput onChange={this.handleChange}/>
-                    <input type="submit" value="Submit"/>
-                </form>
+                    <StyledButton type="submit" value="SEARCH"/>
+                </FormContainer>
 
             </AppHeaderContainer>
         ) 

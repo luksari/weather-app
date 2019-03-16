@@ -18,6 +18,10 @@ declare module 'MyModels' {
         cod: number,
         message: string
       }
+      export interface LocationModel {
+        coord: Coord;
+        name: string
+      }
 }
 interface Coord {
     lon: number;
