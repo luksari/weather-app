@@ -69,7 +69,7 @@ const mapStateToProps = (state: RootState) => ({
     position: state.locationReducer.position,
 })
 type State = {
-    cityName: string
+    location: string
 }
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -77,22 +77,21 @@ class CityFormRaw extends Component<Props, State>{
     constructor(props: Props){
         super(props);
         this.state = {
-            cityName: ''
+            location: ''
         }
     }
     handleChange = (event : React.FormEvent<HTMLInputElement>) => {
         this.setState({
-            cityName: (event.target as HTMLInputElement).value
+            location: (event.target as HTMLInputElement).value
         })
     }
     handleSubmit = (event : SyntheticEvent) =>{
-        this.props.fetchWeather(this.state.cityName)
+        this.props.fetchWeather(this.state.location)
         event.preventDefault();
     }
     handleClick = (event: SyntheticEvent) => {
         event.preventDefault();
         this.props.getLocation();
-        console.log(this.props.position);
     }
     render(){
         return(
