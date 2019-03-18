@@ -28,7 +28,7 @@ export const theme = {
   alternativeColor__lighten: "#E6B37A",
   alternativeColor__darken: "#DC7B0E",
   backgroundColor: "#F5F5F5",
-  shadowColor: "#A4A4A4"
+  shadowColor: "#444444"
 };
 
 export default styled;

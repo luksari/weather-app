@@ -1,6 +1,6 @@
 import { Epic } from 'redux-observable';
 import { from, of } from 'rxjs';
-import { filter, map, catchError, switchMap, take } from 'rxjs/operators';
+import { filter, map, catchError, switchMap, take, mergeMap } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { RootAction, RootState, Services } from 'MyTypes'
 import { fetchWeather } from './weatherActions';
@@ -28,9 +28,12 @@ export const getMyLocationEpic: Epic<RootAction, RootAction, RootState, Services
     filter(isActionOf(getMyLocation.request)),
     switchMap( () => geoLocation.getGeoLocation(options).pipe(
         take(1),
-        map(
-          fetchWeather.request,
-          getMyLocation.success),
+        mergeMap( (data : Position) => of(
+          // Dispatch action with my location data and then dispatch action to request weather from API. It runs fetchWeatherEpic
+          getMyLocation.success(data),
+          fetchWeather.request(data)
+          )
+        ),
         catchError(err => of(getMyLocation.failure(err)))
       )
     )

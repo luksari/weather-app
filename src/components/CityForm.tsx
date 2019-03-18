@@ -9,11 +9,22 @@ import locationIcon from '../assets/icons/ic_location.svg';
 
 const AppHeaderContainer = styled.header`
     width: 100%;
-    height: 130px;
+    height: auto;
+    position: relative;
     background: url('${backgroundImg}') no-repeat 0 0 fixed; 
-    background-size: 100% 130px;
-    box-shadow: 0px 3px 6px ${props => props.theme.shadowColor};
+    background-size: 100% 30%;
     z-index: 999;
+    ::after{
+        position: absolute;
+        content: '';
+        box-shadow: 0px 4px 6px ${props => props.theme.shadowColor};
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: .5;
+    }
 `
 const FormContainer = styled.form`
     display: flex;
@@ -28,6 +39,11 @@ const StyledInput = styled.input`
     outline: none;
     border: none;
     margin: 0 0 0 10px;
+    padding: 5px;
+    color: ${props=> props.theme.primaryColor__darken};
+    &:focus{
+        border-bottom: 2px solid ${props=> props.theme.primaryColor};
+    }
 `
 const InputContainer = styled.div`
     position: relative;
@@ -46,7 +62,7 @@ const LocationButton = styled.button`
     justify-content: center;
     align-items: center;
 `
-const StyledButton = styled.input`
+const SubmitButton = styled.button`
     position: relative;
     font-size: .95em;
     width: 30%;
@@ -56,8 +72,22 @@ const StyledButton = styled.input`
     color: #FFF;
     border-radius: 5px;
     outline: none;
-    &:hover,&:focus{
-        border-bottom: 3px solid ${props => props.theme.primaryColor};
+    :hover, :focus{
+        ::after{
+            opacity: .5;
+        }
+    }
+    ::after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        opacity: .8;
+        box-shadow: 0px 3px 6px ${props=> props.theme.shadowColor};
+        will-change: opacity;
+        transition: opacity 200ms;
     }
 `
 const mapDispatchToProps = {
@@ -67,21 +97,17 @@ const mapDispatchToProps = {
 const mapStateToProps = (state: RootState) => ({
     isLoading: state.weatherReducer.isLoadingWeather,
     position: state.locationReducer.position,
+    weather: state.weatherReducer.weather,
 })
 type State = {
     location: string
 }
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
-
-function isPosition(pos: string | Position) : pos is Position {
-    return (pos as Position).coords !== undefined;
-}
-
 class CityFormRaw extends Component<Props, State>{
     constructor(props: Props){
         super(props);
         this.state = {
-            location: ''
+            location: ' '
         }
     }
     handleChange = (event : React.FormEvent<HTMLInputElement>) => {
@@ -95,24 +121,28 @@ class CityFormRaw extends Component<Props, State>{
         event.preventDefault();
     }
     handleClick = (event: SyntheticEvent) => {
-        const {position, fetchWeather, getLocation} = this.props;
         event.preventDefault();
-        getLocation();
-        if(isPosition(position))
-            fetchWeather(position);
-        
+        const { getLocation } = this.props;
+        getLocation();  
     }
     render(){
         return(
             <AppHeaderContainer>
                 <FormContainer onSubmit={this.handleSubmit}>
                     <InputContainer>
-                        <StyledInput onChange={this.handleChange}/>
-                        <LocationButton onClick={this.handleClick}>
+                        <StyledInput
+                            placeholder="Name of the city..."
+                            id="location"
+                            type="text"
+                            name="location"
+                            onChange={this.handleChange}
+                            onSubmit={this.handleSubmit}
+                            />
+                        <LocationButton type="button" onClick={this.handleClick}>
                             <img src={locationIcon}/>
                         </LocationButton>
                     </InputContainer>
-                    <StyledButton type="submit" value="SEARCH"/>
+                    <SubmitButton type="submit">SEARCH</SubmitButton>
                 </FormContainer>
             </AppHeaderContainer>
         ) 

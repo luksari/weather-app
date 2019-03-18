@@ -7,15 +7,15 @@ import { Label } from './Label';
 const PosedWeatherCard = posed.div({
     enter: {
         y: '0%',
-        opacity: 0,
+        opacity: 1,
         delay: 300,
         transition: {
-          y: { type: 'spring', stiffness: 1000, damping: 15 },
+          y: { type: 'spring', stiffness: 600, damping: 100 },
           default: { duration: 300 }
         }
       },
       exit: {
-        y: '-100%',
+        y: '-150%',
         opacity: 1,
         transition: { duration: 150 }
       }
@@ -44,7 +44,6 @@ type State = {
 
 export class WeatherCard extends React.Component<Props, State> {
     _isMounted = false;
-    private interval : any;
     constructor(props : Props){
         super(props);
         this.state = {
@@ -52,23 +51,13 @@ export class WeatherCard extends React.Component<Props, State> {
         }
     }
     componentDidMount(){
-        this._isMounted = true;
-
-        if(this._isMounted) {
-            this.interval = setInterval(()=>{
-                this.setState({
-                    pose: 'shown'
-                })
-            },200)
-        }
-    }
-    componentWillUnmount(){
-        clearInterval(this.interval);
-        this._isMounted = false;
+        this.setState({
+            pose: 'shown'
+        })
     }
     render(){
-        const {weather} = this.props;
-        const {pose} = this.state;
+        const { weather } = this.props;
+        const { pose } = this.state;
         const { temp, pressure, humidity } = weather.main;
         const { name } = weather;
         const { description } = weather.weather[0];
