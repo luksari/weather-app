@@ -4,7 +4,7 @@ import { filter, map, catchError, switchMap, take } from 'rxjs/operators';
 import { isActionOf } from 'typesafe-actions';
 import { RootAction, RootState, Services } from 'MyTypes'
 import { fetchWeather } from './weatherActions';
-import { getMyLocation } from './locationActions';
+import { getMyLocation, selectLocation } from './locationActions';
 
 const options = {
   enableHighAccuracy: true,
@@ -28,7 +28,9 @@ export const getMyLocationEpic: Epic<RootAction, RootAction, RootState, Services
     filter(isActionOf(getMyLocation.request)),
     switchMap( () => geoLocation.getGeoLocation(options).pipe(
         take(1),
-        map(getMyLocation.success),
+        map(
+          selectLocation,
+          getMyLocation.success),
         catchError(err => of(getMyLocation.failure(err)))
       )
     )

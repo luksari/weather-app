@@ -6,6 +6,7 @@ import styled from '../theme/theme';
 import backgroundImg from '../assets/img/Mask Group 1.png'
 import { getMyLocation } from '../actions/locationActions';
 import locationIcon from '../assets/icons/ic_location.svg';
+import { instanceOf } from 'prop-types';
 
 const AppHeaderContainer = styled.header`
     width: 100%;
@@ -73,6 +74,10 @@ type State = {
 }
 type Props = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
+function isPosition(pos: string | Position) : pos is Position {
+    return (pos as Position).coords !== undefined;
+}
+
 class CityFormRaw extends Component<Props, State>{
     constructor(props: Props){
         super(props);
@@ -86,12 +91,17 @@ class CityFormRaw extends Component<Props, State>{
         })
     }
     handleSubmit = (event : SyntheticEvent) =>{
-        this.props.fetchWeather(this.state.location)
+        const {fetchWeather, position} = this.props;
+        if(typeof position === 'string')
+        fetchWeather(position)
         event.preventDefault();
     }
     handleClick = (event: SyntheticEvent) => {
+        const {position, getLocation, fetchWeather} = this.props;
         event.preventDefault();
-        this.props.getLocation();
+        if(isPosition(position))
+            fetchWeather(position)
+        
     }
     render(){
         return(
