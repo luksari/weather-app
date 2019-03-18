@@ -7,6 +7,6 @@ export const fetchWeather = createAsyncAction(
     FETCH_WEATHER_BEGIN,
     FETCH_WEATHER_SUCCESS,
     FETCH_WEATHER_FAILURE
-)<string, WeatherModel, ErrorModel>();
+)<string|Position, WeatherModel, ErrorModel>();
 
 
