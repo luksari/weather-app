@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import styled from '../theme/theme';
 import backgroundImg from '../assets/img/Mask Group 1.png'
 import { getMyLocation } from '../actions/locationActions';
+import locationIcon from '../assets/icons/ic_location.svg';
 
 const AppHeaderContainer = styled.header`
     width: 100%;
@@ -22,13 +23,28 @@ const FormContainer = styled.form`
     justify-content: center;
 `
 const StyledInput = styled.input`
-    width: 100%;
+    width: 80%;
     font-size: 1.3em;
     outline: none;
     border: none;
+    margin: 0 0 0 10px;
+`
+const InputContainer = styled.div`
+    position: relative;
+    display: flex;
+    background: #fff;
     border-radius: 5px;
-    margin: 0 0 15px 0;
-    padding: 5px 0 5px 15px;
+    padding: 10px;
+    margin: 0 0 10px 0;
+`
+const LocationButton = styled.button`
+    display: flex;
+    width: 20%;
+    outline: none;
+    background: none;
+    border: none;
+    justify-content: center;
+    align-items: center;
 `
 const StyledButton = styled.input`
     position: relative;
@@ -73,19 +89,23 @@ class CityFormRaw extends Component<Props, State>{
         this.props.fetchWeather(this.state.cityName)
         event.preventDefault();
     }
-    handleClick = () => {
+    handleClick = (event: SyntheticEvent) => {
+        event.preventDefault();
         this.props.getLocation();
         console.log(this.props.position);
     }
     render(){
         return(
             <AppHeaderContainer>
-                <button onClick={this.handleClick}>Get location</button>
                 <FormContainer onSubmit={this.handleSubmit}>
-                    <StyledInput onChange={this.handleChange}/>
+                    <InputContainer>
+                        <StyledInput onChange={this.handleChange}/>
+                        <LocationButton onClick={this.handleClick}>
+                            <img src={locationIcon}/>
+                        </LocationButton>
+                    </InputContainer>
                     <StyledButton type="submit" value="SEARCH"/>
                 </FormContainer>
-
             </AppHeaderContainer>
         ) 
     }

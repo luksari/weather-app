@@ -2,7 +2,7 @@ import { RootAction } from 'MyTypes';
 import { combineReducers } from 'redux';
 import { getType } from 'typesafe-actions';
 
-import * as locationActions from '../actions/locationActions';
+import {getMyLocation} from '../actions/locationActions';
 
 export type locationState = {
     position: Position;
@@ -12,7 +12,7 @@ export type locationState = {
 export const locationReducer = combineReducers<locationState, RootAction>({
     position: (state = {} as Position, action) => {
         switch(action.type){
-            case getType(locationActions.getMyLocation.success):
+            case getType(getMyLocation.success):
                 return action.payload;
             default:
                 return state;
@@ -20,7 +20,7 @@ export const locationReducer = combineReducers<locationState, RootAction>({
     },
     error: (state = false, action) => {
         switch(action.type){
-            case getType(locationActions.getMyLocation.failure):
+            case getType(getMyLocation.failure):
                 return true;
             default:
                 return state;
