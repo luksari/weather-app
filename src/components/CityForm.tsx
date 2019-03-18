@@ -73,13 +73,14 @@ class CityFormRaw extends Component<Props, State>{
         this.props.fetchWeather(this.state.cityName)
         event.preventDefault();
     }
-    handleClick = (event : SyntheticEvent) => {
+    handleClick = () => {
         this.props.getLocation();
+        console.log(this.props.position);
     }
     render(){
         return(
             <AppHeaderContainer>
-                <button onClick={this.handleClick}>{location ? location.hash : 'XD'}</button>
+                <button onClick={this.handleClick}>Get location</button>
                 <FormContainer onSubmit={this.handleSubmit}>
                     <StyledInput onChange={this.handleChange}/>
                     <StyledButton type="submit" value="SEARCH"/>

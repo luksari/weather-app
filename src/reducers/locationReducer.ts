@@ -13,7 +13,7 @@ export const locationReducer = combineReducers<locationState, RootAction>({
     position: (state = {} as Position, action) => {
         switch(action.type){
             case getType(locationActions.getMyLocation.success):
-                console.log('xd'); return action.payload;
+                return action.payload;
             default:
                 return state;
         }
