@@ -1,5 +1,6 @@
 {
   "name": "weather-app",
+  "homepage": "https://luksari.github.io/weather-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +10,7 @@
     "@types/react-dom": "16.8.2",
     "@types/react-redux": "^7.0.3",
     "@types/styled-components": "^4.1.12",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
@@ -25,6 +27,8 @@
     "typescript": "3.3.3333"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

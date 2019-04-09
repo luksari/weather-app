@@ -32,9 +32,10 @@ const FormContainer = styled.form`
     padding: 15px;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 `
 const StyledInput = styled.input`
-    width: 80%;
+    width: 100%;
     font-size: 1.3em;
     outline: none;
     border: none;
@@ -65,7 +66,6 @@ const LocationButton = styled.button`
 const SubmitButton = styled.button`
     position: relative;
     font-size: .95em;
-    width: 30%;
     background: ${props => props.theme.alternativeColor};
     border: none;
     padding: 15px;
