@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 4060 872" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
-    <g transform="matrix(2.66667,0,0,2.66667,-454.925,-1004.27)">
+<svg width="100%" height="100%" viewBox="0 0 5120 2880" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g transform="matrix(2.66667,0,0,2.66667,0,0)">
         <g transform="matrix(2.42017,0,0,2.33165,-39.9273,-456.381)">
             <path d="M257.904,427.329C257.904,388.625 227.676,357.25 190.388,357.25C178.586,357.25 166.306,357.25 154.503,357.25C117.215,357.25 86.987,388.625 86.987,427.329C86.987,427.329 86.987,427.329 86.987,427.329C86.987,466.033 117.215,497.408 154.503,497.408C166.306,497.408 178.586,497.408 190.388,497.408C227.676,497.408 257.904,466.033 257.904,427.329C257.904,427.329 257.904,427.329 257.904,427.329Z" style="fill:rgb(48,153,251);"/>
             <clipPath id="_clip1">
@@ -36,8 +36,8 @@
                                 <path d="M274.763,383.645C297.09,378.166 322.07,393.802 334.911,416.044C334.912,416.046 334.914,416.048 334.915,416.05C342.82,429.745 342.819,446.618 334.912,460.313C327.005,474.008 312.392,482.444 296.579,482.444C255.49,482.444 184.317,482.444 143.229,482.444C135.839,482.444 118.019,480.341 111.712,476.952C131.358,425.339 220.177,446.743 246.159,430.997C271.953,415.364 274.625,388.18 274.763,383.645Z"/>
                             </clipPath>
                             <g clip-path="url(#_clip5)">
-                                <g transform="matrix(0.157513,-0,-0,0.138465,131.754,329.581)">
-                                    <use xlink:href="#_Image6" x="158" y="415.759" width="945.195px" height="455.848px" transform="matrix(0.999149,0,0,0.999667,0,0)"/>
+                                <g transform="matrix(0.157513,-0,-0,0.138465,60.0969,190.525)">
+                                    <use xlink:href="#_Image6" x="613.313" y="1420.36" width="945.195px" height="455.848px" transform="matrix(0.999149,0,0,0.999667,0,0)"/>
                                 </g>
                             </g>
                         </g>
