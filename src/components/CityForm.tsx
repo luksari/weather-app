@@ -14,6 +14,7 @@ const AppHeaderContainer = styled.header`
     background: url('${backgroundImg}') no-repeat 0 0 fixed; 
     background-size: 100% 30%;
     z-index: 999;
+    background-color: ${props=> props.theme.primaryColor};
     ::after{
         position: absolute;
         content: '';
