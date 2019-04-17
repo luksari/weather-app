@@ -2,7 +2,7 @@
 
 ## Description
 **Cloudee** is a forecast app built for Mobile User Interfaces course, with ability of showing current weather for particular location.
-
+[**Check Live version here**](https://luksari.github.io/weather-app/)
 ## Functionalities:
 - Get current location
 - Input location
@@ -15,5 +15,6 @@
 - `RxJS`
 - `Typescript`
 - `Material design`
+
 
 
