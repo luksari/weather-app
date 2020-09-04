@@ -10,7 +10,7 @@
     "@types/react-redux": "^7.0.3",
     "@types/styled-components": "^4.1.12",
     "gh-pages": "^2.0.1",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-pose": "^4.0.8",
